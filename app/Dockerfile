@@ -19,6 +19,8 @@ RUN cd /var/www && \
 WORKDIR /var/www/symfony_demo
 
 COPY config/ /var/www/symfony_demo/app/config/ 
+ADD base.html.twig /var/www/symfony_demo/app/Resources/views/base.html.twig
+ADD oxalide.png /var/www/symfony_demo/web/oxalide.png
 
 ENV SYMFONY__DATABASE__USER=root \
     SYMFONY__DATABASE__PASSWORD=toto42 \
