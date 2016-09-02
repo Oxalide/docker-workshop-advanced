@@ -5,3 +5,21 @@ This app is based on the Symfony demo app, but using a MySQL backend.
 Before launching the app, the ``data.sql`` file must be imported in MySQL.
 
 In K8s, this can be done with the notion of ``init containers`` ([doc](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization)).
+
+## HowTo
+
+```bash
+docker build -t oxalide/docker-workshop:app-redis .
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=toto42 -d mysql:5.6
+docker run --name redis -d redis:3.2-alpine
+cat data.sql | docker run -a stdin -a stdout -a stderr -i --link mysql:mysql --rm mysql:5.6 sh -c 'exec mysql -hmysql -uroot -ptoto42'
+docker run --link mysql:mysql --link redis:redis --rm -p 8080:80 -it oxalide/docker-workshop:app-redis
+```
+
+Access the [app](http://localhost:8080): you can surf and connect to the backoffice.
+
+You can run the following command to observe that Redis is indeed used for session storage:
+
+```bash
+docker run -it --link redis:redis --rm redis:3.2-alpine redis-cli -h redis -p 6379 keys '*'
+```
