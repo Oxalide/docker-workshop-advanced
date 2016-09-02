@@ -16,3 +16,22 @@ docker run --link mysql:mysql --rm -p 8080:80 -it oxalide/docker-workshop:app
 ```
 
 Access the [app](http://localhost:8080): you can surf and connect to the backoffice.
+
+## Environment variables
+
+Here are the available environment variables for the containers.
+
+### mysql
+
+* ``MYSQL_ROOT_PASSWORD``
+* ``MYSQL_DATABASE``
+* ``MYSQL_USER``
+* ``MYSQL_PASSWORD``
+
+### oxalide/docker-workshop:app-redis
+
+* ``SYMFONY__DATABASE__HOST``
+* ``SYMFONY__DATABASE__PORT``
+* ``SYMFONY__DATABASE__NAME``
+* ``SYMFONY__DATABASE__USER``
+* ``SYMFONY__DATABASE__PASSWORD``
