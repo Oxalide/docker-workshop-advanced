@@ -23,3 +23,24 @@ You can run the following command to observe that Redis is indeed used for sessi
 ```bash
 docker run -it --link redis:redis --rm redis:3.2-alpine redis-cli -h redis -p 6379 keys '*'
 ```
+
+## Environment variables
+
+Here are the available environment variables for the containers.
+
+### mysql
+
+* ``MYSQL_ROOT_PASSWORD``
+* ``MYSQL_DATABASE``
+* ``MYSQL_USER``
+* ``MYSQL_PASSWORD``
+
+### oxalide/docker-workshop:app-redis
+
+* ``SYMFONY__DATABASE__HOST``
+* ``SYMFONY__DATABASE__PORT``
+* ``SYMFONY__DATABASE__NAME``
+* ``SYMFONY__DATABASE__USER``
+* ``SYMFONY__DATABASE__PASSWORD``
+* ``REDIS_HOST``
+* ``REDIS_PORT``
