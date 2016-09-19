@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: front
+    version: app
+  name: front
+  selfLink: /api/v1/namespaces//replicationcontrollers/front
+spec:
+  replicas: 1
+  selector:
+    app: front
+    version: app
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: front
+        version: app
+      name: front
+    spec:
+      containers:
+      - image: oxalide/workshop-docker-advanced:app
+        imagePullPolicy: IfNotPresent
+        name: front
+        resources: {}
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  replicas: 0
