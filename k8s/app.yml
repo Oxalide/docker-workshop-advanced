@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: app
+    spec:
+      containers:
+      - name: app
+        image: oxalide/workshop-docker-advanced:app-redis
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
