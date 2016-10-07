@@ -89,7 +89,7 @@ Solution :
 
 ## Déploiement sur minikube
 
-_Sur votre laptop_
+_Sur minikube_
 
 Exercice : déployer la nouvelle version de l'application sur minikube.
 
