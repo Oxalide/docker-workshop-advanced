@@ -1,32 +1,33 @@
 # Demo app
 
-This app is based on the Symfony demo app, but using a MySQL backend.
+Cette application est basée sur l'app de démonstration de Symfony, avec un backend MySQL.
 
-Before launching the app, the ``data.sql`` file must be imported in MySQL.
+Avant de lancer l'applicaiton, le fichier ``data.sql`` doit être importer dans MySQL.
 
-In K8s, this can be done with the notion of ``init containers`` ([doc](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization)).
+Dans K8s, cela peut être fait à l'aide d'un ``init container`` ([doc](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization)).
 
 ## HowTo
 
 ```bash
-docker build -t oxalide/docker-workshop:app-redis .
+docker build -t oxalide/workshop-docker-advanced:app-redis .
 docker run --name mysql -e MYSQL_ROOT_PASSWORD=toto42 -d mysql:5.6
 docker run --name redis -d redis:3.2-alpine
 cat data.sql | docker run -a stdin -a stdout -a stderr -i --link mysql:mysql --rm mysql:5.6 sh -c 'exec mysql -hmysql -uroot -ptoto42'
-docker run --link mysql:mysql --link redis:redis --rm -p 8080:80 -it oxalide/docker-workshop:app-redis
+docker run --link mysql:mysql --link redis:redis --rm -p 8080:80 -it oxalide/workshop-docker-advanced:app-redis
 ```
 
-Access the [app](http://localhost:8080): you can surf and connect to the backoffice.
 
-You can run the following command to observe that Redis is indeed used for session storage:
+L'application est disponible [ici](http://localhost:8080): vous pouvez la parcourir et vous connecter au backoffice.
+
+Vous pouvez executer la commande suivante pour vérifier que Redis est bien utiliser pour stocker les sessions:
 
 ```bash
 docker run -it --link redis:redis --rm redis:3.2-alpine redis-cli -h redis -p 6379 keys '*'
 ```
 
-## Environment variables
+## Variables d'environnement
 
-Here are the available environment variables for the containers.
+Voici les variables d'environnement disponibles pour les containers:
 
 ### mysql
 
@@ -42,5 +43,5 @@ Here are the available environment variables for the containers.
 * ``SYMFONY__DATABASE__NAME``
 * ``SYMFONY__DATABASE__USER``
 * ``SYMFONY__DATABASE__PASSWORD``
-* ``REDIS_HOST``
-* ``REDIS_PORT``
+* ``SYMFONY__REDIS_HOST``
+* ``SYMFONY__REDIS_PORT``
