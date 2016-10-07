@@ -1,14 +1,14 @@
 # HowTo
 
 ```bash
-kubectl --namespace=workshop create -f app-svc.yml
-kubectl --namespace=workshop create -f mysql.yml
-kubectl --namespace=workshop create -f mysql-svc.yml
-POD=$(kubectl --namespace=workshop get pods | grep mysql | awk '{print $1}')
-kubectl --namespace=workshop port-forward $POD 3306:3306
+kubectl create -f app-svc.yml
+kubectl create -f mysql.yml
+kubectl create -f mysql-svc.yml
+kubectl create -f app.yml
+POD=$(kubectl get pods | grep mysql | awk '{print $1}')
+kubectl port-forward $POD 3306:3306
+# in another terminal, after MySQL is ready
 cat ../app/data.sql | mysql -p -h127.0.0.1 -uroot
-kubectl --namespace=workshop create -f app.yml
-kubectl --namespace=workshop describe service app
 ```
 
-La dernière commande donne l'adresse de l'ELB.
+Pour afficher l'application via minikube: ``minikube service app``.

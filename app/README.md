@@ -1,10 +1,10 @@
 # Demo app
 
-This app is based on the Symfony demo app, but using a MySQL backend.
+Cette application est basée sur l'app de démonstration de Symfony, avec un backend MySQL.
 
-Before launching the app, the ``data.sql`` file must be imported in MySQL.
+Avant de lancer l'applicaiton, le fichier ``data.sql`` doit être importer dans MySQL.
 
-In K8s, this can be done with the notion of ``init containers`` ([doc](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization)).
+Dans K8s, cela peut être fait à l'aide d'un ``init container`` ([doc](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization)).
 
 ## HowTo
 
@@ -16,11 +16,11 @@ cat data.sql | docker run -a stdin -a stdout -a stderr -i --link mysql:mysql --r
 docker run --link mysql:mysql --rm -p 8080:80 -it oxalide/docker-workshop:app
 ```
 
-Access the [app](http://localhost:8080): you can surf and connect to the backoffice.
+L'application est disponible [ici](http://localhost:8080): vous pouvez la parcourir et vous connecter au backoffice.
 
-## Environment variables
+## Variables d'environnement
 
-Here are the available environment variables for the containers.
+Voici les variables d'environnement disponibles pour les containers:
 
 ### mysql
 
@@ -29,7 +29,7 @@ Here are the available environment variables for the containers.
 * ``MYSQL_USER``
 * ``MYSQL_PASSWORD``
 
-### oxalide/docker-workshop:app-redis
+### oxalide/docker-workshop:app
 
 * ``SYMFONY__DATABASE__HOST``
 * ``SYMFONY__DATABASE__PORT``
