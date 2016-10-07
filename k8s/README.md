@@ -1,14 +1,15 @@
 # HowTo
 
 ```bash
-kubectl --namespace=workshop create -f app-svc.yml
-kubectl --namespace=workshop create -f mysql.yml
-kubectl --namespace=workshop create -f mysql-svc.yml
-POD=$(kubectl --namespace=workshop get pods | grep mysql | awk '{print $1}')
-kubectl --namespace=workshop port-forward $POD 3306:3306
-cat ../app/data.sql | mysql -p -h127.0.0.1 -uroot
-kubectl --namespace=workshop create -f app.yml
-kubectl --namespace=workshop describe service app
+kubectl create -f redis.yml -f redis-svc.yml
+kubectl replace -f app.yml
 ```
 
-La dernière commande donne l'adresse de l'ELB.
+La dernière commande va effectuer un rolling-update sur le ``deployment`` app.
+
+Pour vérifier que Redis est bien utilisé, vous pouvez utiliser la commande suivante :
+
+```bash
+POD=$(kubectl get pods | grep redis | awk '{print $1}')
+kubectl exec $POD -- redis-cli keys '*'
+```
