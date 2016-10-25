@@ -2,7 +2,7 @@
 
 Cette application est basée sur l'app de démonstration de Symfony, avec un backend MySQL.
 
-Avant de lancer l'applicaiton, le fichier ``data.sql`` doit être importer dans MySQL.
+Avant de lancer l'applicaiton, le fichier ``data.sql`` doit être importé dans MySQL.
 
 Dans K8s, cela peut être fait à l'aide d'un ``init container`` ([doc](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization)).
 
