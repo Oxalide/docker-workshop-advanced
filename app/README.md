@@ -2,18 +2,18 @@
 
 Cette application est basée sur l'app de démonstration de Symfony, avec un backend MySQL.
 
-Avant de lancer l'applicaiton, le fichier ``data.sql`` doit être importer dans MySQL.
+Avant de lancer l'applicaiton, le fichier ``data.sql`` doit être importé dans MySQL.
 
 Dans K8s, cela peut être fait à l'aide d'un ``init container`` ([doc](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization)).
 
 ## HowTo
 
 ```bash
-docker build -t oxalide/workshop-docker-advanced:app .
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=toto42 -d mysql:5.6
+docker build --tag oxalide/workshop-docker-advanced:app .
+docker run --name mysql --env MYSQL_ROOT_PASSWORD=toto42 --detach mysql:5.6
 # wait a little for MySQL to be ready.
-cat data.sql | docker run -a stdin -a stdout -a stderr -i --link mysql:mysql --rm mysql:5.6 sh -c 'exec mysql -hmysql -uroot -ptoto42'
-docker run --link mysql:mysql --rm -p 8080:80 -it oxalide/workshop-docker-advanced:app
+cat data.sql | docker run --attach stdin --attach stdout --attach stderr --interactive --link mysql:mysql --rm mysql:5.6 sh -c 'exec mysql -hmysql -uroot -ptoto42'
+docker run --link mysql:mysql --rm --publish 8080:80 --interactive --tty oxalide/workshop-docker-advanced:app
 ```
 
 L'application est disponible [ici](http://localhost:8080): vous pouvez la parcourir et vous connecter au backoffice.
